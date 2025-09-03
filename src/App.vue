@@ -1,18 +1,26 @@
 <script setup>
-import JSONLab from './components/JSONLab.vue'
+import { onMounted } from 'vue'
 import BHeader from './components/BHeader.vue'
-import LibraryRegistrationForm from './components/LibraryRegistrationForm.vue'
+import { useAuth } from './composables/useAuth'
+
+const { initAuth } = useAuth()
+
+// 在组件挂载时初始化身份验证状态
+onMounted(() => {
+  initAuth()
+})
 </script>
 
 <template>
-  <header>
-    <BHeader />
-  </header>
+  <div class="main-container">
+    <header>
+      <BHeader />
+    </header>
 
-  <main>
-    <LibraryRegistrationForm />
-    <!-- <JSONLab /> -->
-  </main>
+    <main class="main-box">
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <style scoped>

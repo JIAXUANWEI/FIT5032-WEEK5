@@ -1,15 +1,53 @@
+<script setup>
+import { useRouter } from 'vue-router'
+import { useAuth } from '../composables/useAuth'
+
+const router = useRouter()
+const { isLoggedIn, username, logout } = useAuth()
+
+const handleLogout = () => {
+  logout()
+  router.push('/login')
+}
+</script>
+
 <template>
   <!-- Using Bootstrap's Header template (starter code) -->
   <!-- https://getbootstrap.com/docs/5.0/examples/headers/ -->
   <div class="container">
-    <header class="d-flex justify-content-center py-3">
+    <header class="d-flex justify-content-between align-items-center py-3">
+      <!-- 左侧导航链接 -->
       <ul class="nav nav-pills">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">Home (Week 4)</a>
+          <router-link to="/" class="nav-link" active-class="active" aria-current="page"
+            >Home (Week 5)</router-link
+          >
         </li>
-        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Contact us</a></li>
+        <li class="nav-item">
+          <router-link to="/about" class="nav-link">About</router-link>
+        </li>
       </ul>
+      
+      <!-- 右侧用户状态 -->
+      <div class="d-flex align-items-center">
+        <!-- 未登录状态 -->
+        <div v-if="!isLoggedIn" class="d-flex align-items-center">
+          <span class="text-muted me-3">Welcome, Guest</span>
+          <router-link to="/login" class="btn btn-outline-primary btn-sm">
+            🔐 Login
+          </router-link>
+        </div>
+        
+        <!-- 已登录状态 -->
+        <div v-else class="d-flex align-items-center">
+          <span class="text-success me-3">
+            👋 Welcome, <strong>{{ username }}</strong>
+          </span>
+          <button @click="handleLogout" class="btn btn-outline-danger btn-sm">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
     </header>
   </div>
 </template>
@@ -48,5 +86,21 @@
 
 .dropdown-toggle {
   outline: 0;
+}
+
+/* 新增样式 */
+.nav-pills .nav-link.active {
+  background-color: #0d6efd;
+  color: white;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+}
+
+.text-success {
+  color: #198754 !important;
 }
 </style>
