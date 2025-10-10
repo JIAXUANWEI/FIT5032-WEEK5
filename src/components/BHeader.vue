@@ -41,6 +41,15 @@ const handleLogout = () => {
         <li class="nav-item">
           <router-link to="/GetBookCount" class="nav-link" active-class="active">get book count</router-link>
         </li>
+         <li class="nav-item">
+          <router-link to="/WeatherCheck" class="nav-link" active-class="active">get Weather</router-link>
+        </li>
+       <li class="nav-item">
+          <router-link to="/CountBookAPI" class="nav-link" active-class="active">Count Book API</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/GetAllBook" class="nav-link" active-class="active">GetAllBook</router-link>
+        </li>
       </ul>
       
       <!-- 右侧用户状态 -->

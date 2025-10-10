@@ -1,19 +1,7 @@
-<script setup>
-import { onMounted } from 'vue'
-import BHeader from './components/BHeader.vue'
-import { useAuth } from './composables/useAuth'
-
-const { initAuth } = useAuth()
-
-// 在组件挂载时初始化身份验证状态
-onMounted(() => {
-  initAuth()
-})
-</script>
 
 <template>
   <div class="main-container">
-    <header>
+    <header v-if="showHeader">
       <BHeader />
     </header>
 
@@ -22,6 +10,26 @@ onMounted(() => {
     </main>
   </div>
 </template>
+<script setup>
+import { onMounted, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import BHeader from './components/BHeader.vue'
+import { useAuth } from './composables/useAuth'
+
+// 导入 CountBookAPI 仅在需要时使用
+import CountBookAPI from './views/CountBookAPI.vue'
+
+// 初始化身份验证
+const { initAuth } = useAuth()
+onMounted(() => {
+  initAuth()
+})
+
+// 使用 Vue Router 的路由信息判断是否显示 Header
+const route = useRoute()
+const showHeader = computed(() => route.name !== 'CountBookAPI')
+</script>
+
 
 <style scoped>
 /* header {
